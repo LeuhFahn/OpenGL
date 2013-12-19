@@ -1,7 +1,15 @@
 #include <iostream>
 
-//#define GLFW_DLL
-#include <GLFW\glfw3.h>
+#define GLEW_MX
+#define GLEW_STATIC
+#include "GLEW/glew.h"
+#include "GLFW/glfw3.h"
+
+GLEWContext* glewGetContext()
+{
+	GLEWContext* pGlewContext = new GLEWContext();
+	return pGlewContext;
+}
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -9,10 +17,10 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
+
 int main()
 {
 	int nWidth = 1024, nHeight = 768;
-
 	// Initializing GLFW
     if( !glfwInit() )
     {
@@ -32,6 +40,15 @@ int main()
 
 	//Making the OpenGL context current
 	glfwMakeContextCurrent(window);
+
+	GLenum err = glewInit();
+    if (GLEW_OK != err)
+    {
+          /* Problem: glewInit failed, something is seriously wrong. */
+          fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+          exit( EXIT_FAILURE );
+    }
+
 
 	glfwSetKeyCallback(window, key_callback);
 
@@ -61,6 +78,7 @@ int main()
 			glColor3f(0.f, 0.f, 1.f);
 			glVertex3f(0.f, 0.6f, 0.f);
         glEnd();
+
 
         glfwSwapBuffers(window);
         glfwPollEvents();
