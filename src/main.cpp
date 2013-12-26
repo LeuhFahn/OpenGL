@@ -1,22 +1,14 @@
 #include <iostream>
 
-#define GLEW_MX
 #define GLEW_STATIC
 #include "GLEW/glew.h"
-#include "GLFW/glfw3.h"
-
-GLEWContext* glewGetContext()
-{
-	GLEWContext* pGlewContext = new GLEWContext();
-	return pGlewContext;
-}
+#include "glfw/glfw3.h"
 
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
 }
-
 
 int main()
 {
@@ -28,10 +20,13 @@ int main()
         exit( EXIT_FAILURE );
     }
 
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 	//Creating a window and context
 	GLFWwindow* window = glfwCreateWindow(nWidth, nHeight, "My Title", NULL, NULL);
 	//GLFWwindow* window = glfwCreateWindow(640, 480, "My Title", glfwGetPrimaryMonitor(), NULL); //for fullscreen
-
 	if (!window)
 	{
 		glfwTerminate();
@@ -41,16 +36,20 @@ int main()
 	//Making the OpenGL context current
 	glfwMakeContextCurrent(window);
 
-	GLenum err = glewInit();
-    if (GLEW_OK != err)
+	glfwSetKeyCallback(window, key_callback);
+
+	glewExperimental = GL_TRUE;
+    if (glewInit() != GLEW_OK)
     {
-          /* Problem: glewInit failed, something is seriously wrong. */
-          fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
-          exit( EXIT_FAILURE );
+         fprintf( stderr, "Failed to initialize GLEW\n" );
+         exit( EXIT_FAILURE );
     }
 
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	glfwSetKeyCallback(window, key_callback);
+	GLuint VBO;
+	glGenBuffers(1, &VBO);
+	
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -70,14 +69,6 @@ int main()
         glLoadIdentity();
         glRotatef((float) glfwGetTime() * 50.f, 0.f, 0.f, 1.f);
 
-        glBegin(GL_TRIANGLES);
-			glColor3f(1.f, 0.f, 0.f);
-			glVertex3f(-0.6f, -0.4f, 0.f);
-			glColor3f(0.f, 1.f, 0.f);
-			glVertex3f(0.6f, -0.4f, 0.f);
-			glColor3f(0.f, 0.f, 1.f);
-			glVertex3f(0.f, 0.6f, 0.f);
-        glEnd();
 
 
         glfwSwapBuffers(window);
