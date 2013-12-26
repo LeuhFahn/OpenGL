@@ -39,6 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>../bin</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -79,6 +80,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Tools\ShaderGLSL.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Tools\GLCommon.h" />
+    <ClInclude Include="..\src\Tools\ShaderGLSL.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
