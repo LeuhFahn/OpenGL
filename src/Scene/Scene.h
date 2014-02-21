@@ -5,6 +5,8 @@
 #include "../Tools/GLCommon.h"
 #include "../shapes/shape.h"
 #include "../shapes/triangle.h"
+#include "../Tools/ShaderGLSL.h"
+#include "../Tools/Camera.h"
 #include <vector>
 
 class CScene

@@ -90,6 +90,7 @@
     <ClInclude Include="..\src\Scene\Scene.h" />
     <ClInclude Include="..\src\shapes\shape.h" />
     <ClInclude Include="..\src\shapes\triangle.h" />
+    <ClInclude Include="..\src\Tools\Camera.h" />
     <ClInclude Include="..\src\Tools\GLCommon.h" />
     <ClInclude Include="..\src\Tools\ShaderGLSL.h" />
     <ClInclude Include="..\src\user\user.h" />

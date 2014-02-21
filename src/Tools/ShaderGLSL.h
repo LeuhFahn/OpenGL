@@ -2,7 +2,7 @@
 
 #include "GLCommon.h"
 
-struct ShaderGLSL
+struct SShaderGLSL
 {
 	enum ShaderType
 	{
@@ -13,6 +13,6 @@ struct ShaderGLSL
 	GLuint program;
 };
 
-int compile_and_link_shader(ShaderGLSL & shader, int typeMask, const char * sourceBuffer, int bufferSize);
-int destroy_shader(ShaderGLSL & shader);
-int load_shader_from_file(ShaderGLSL & shader, const char * path, int typemask);
+int compile_and_link_shader(SShaderGLSL & shader, int typeMask, const char * sourceBuffer, int bufferSize);
+int destroy_shader(SShaderGLSL & shader);
+int load_shader_from_file(SShaderGLSL & shader, const char * path, int typemask);

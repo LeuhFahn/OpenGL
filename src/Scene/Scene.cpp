@@ -21,6 +21,16 @@ CScene::~CScene()
 void CScene::Init()
 {
 	InitSDL();
+	/*
+	 SShaderGLSL shader;
+    const char * shaderFile = "001/3a.glsl";
+    int status = load_shader_from_file(shader, shaderFile, SShaderGLSL::VERTEX_SHADER | SShaderGLSL::FRAGMENT_SHADER);
+    if ( status == -1 )
+    {
+        fprintf(stderr, "Error on loading  %s\n", shaderFile);
+        exit( EXIT_FAILURE );
+    }
+	*/
 
 	m_pShape[0] = new CTriangle();
 	m_nNbShapes++;

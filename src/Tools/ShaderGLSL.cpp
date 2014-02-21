@@ -2,14 +2,14 @@
 #include <string.h>
 #include <stdio.h>
 
-int  compile_and_link_shader(ShaderGLSL & shader, int typeMask, const char * sourceBuffer, int bufferSize)
+int  compile_and_link_shader(SShaderGLSL & shader, int typeMask, const char * sourceBuffer, int bufferSize)
 {
 	// Create program object
 	shader.program = glCreateProgram();
 	
 	//Handle Vertex Shader
 	GLuint vertexShaderObject ;
-	if (typeMask & ShaderGLSL::VERTEX_SHADER)
+	if (typeMask & SShaderGLSL::VERTEX_SHADER)
 	{
 		// Create shader object for vertex shader
 		vertexShaderObject = glCreateShader(GL_VERTEX_SHADER);
@@ -45,7 +45,7 @@ int  compile_and_link_shader(ShaderGLSL & shader, int typeMask, const char * sou
 
 	// Handle Fragment shader
 	GLuint fragmentShaderObject ;
-	if (typeMask && ShaderGLSL::FRAGMENT_SHADER)
+	if (typeMask && SShaderGLSL::FRAGMENT_SHADER)
 	{
 		// Create shader object for fragment shader
 		fragmentShaderObject = glCreateShader(GL_FRAGMENT_SHADER);
@@ -91,11 +91,11 @@ int  compile_and_link_shader(ShaderGLSL & shader, int typeMask, const char * sou
 	glLinkProgram(shader.program);
 
 	// Clean
-	if (typeMask & ShaderGLSL::VERTEX_SHADER)
+	if (typeMask & SShaderGLSL::VERTEX_SHADER)
 	{
 		glDeleteShader(vertexShaderObject);
 	}
-	if (typeMask && ShaderGLSL::FRAGMENT_SHADER)
+	if (typeMask && SShaderGLSL::FRAGMENT_SHADER)
 	{
 		glDeleteShader(fragmentShaderObject);
 	}
@@ -119,14 +119,14 @@ int  compile_and_link_shader(ShaderGLSL & shader, int typeMask, const char * sou
 	return 0;
 }
 
-int  destroy_shader(ShaderGLSL & shader)
+int  destroy_shader(SShaderGLSL & shader)
 {
 	glDeleteProgram(shader.program);
 	shader.program = 0;
 	return 0;
 }
 
-int load_shader_from_file(ShaderGLSL & shader, const char * path, int typemask)
+int load_shader_from_file(SShaderGLSL & shader, const char * path, int typemask)
 {
 	int status;
     FILE * shaderFileDesc = fopen( path, "rb" );
