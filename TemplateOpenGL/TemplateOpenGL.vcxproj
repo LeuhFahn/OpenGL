@@ -90,6 +90,7 @@
     <ClInclude Include="..\src\shapes\triangle.h" />
     <ClInclude Include="..\src\Tools\GLCommon.h" />
     <ClInclude Include="..\src\Tools\ShaderGLSL.h" />
+    <ClInclude Include="..\src\user\user.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

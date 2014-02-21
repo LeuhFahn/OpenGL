@@ -19,6 +19,9 @@
     <Filter Include="Fichiers sources\Shapes">
       <UniqueIdentifier>{9140b913-dec1-49d5-b86a-2c036ff00bb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\user">
+      <UniqueIdentifier>{5d39d5dd-96be-4ad4-99b4-a4487a1aadb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -46,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="..\src\shapes\triangle.h">
       <Filter>Fichiers sources\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\user\user.h">
+      <Filter>Fichiers sources\user</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
