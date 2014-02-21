@@ -10,6 +10,7 @@ protected:
 	int m_nNbVertices;
 public:
 	CShape();
+	CShape(CShape const& shape);
 	~CShape();
 
 	void SetVertices(float* pfVertices);

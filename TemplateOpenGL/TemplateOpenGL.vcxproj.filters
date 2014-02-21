@@ -22,6 +22,9 @@
     <Filter Include="Fichiers sources\user">
       <UniqueIdentifier>{5d39d5dd-96be-4ad4-99b4-a4487a1aadb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Scene">
+      <UniqueIdentifier>{b33c53d2-c5c2-4913-997b-56c7ff938005}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="..\src\shapes\triangle.cpp">
       <Filter>Fichiers sources\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\Scene.cpp">
+      <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="..\src\user\user.h">
       <Filter>Fichiers sources\user</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\Scene.h">
+      <Filter>Fichiers sources\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

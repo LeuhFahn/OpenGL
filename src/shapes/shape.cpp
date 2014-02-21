@@ -8,12 +8,12 @@ CShape::CShape()
 
 CShape::~CShape()
 {
-
+	delete m_pfVertices;
 }
 
 void CShape::SetVertices(float* pfVertices)
 {
-	//delete[] m_pfVertices;
+	delete m_pfVertices;
 	m_pfVertices = new float[m_nNbVertices];
 
 	for (int i = 0 ; i < m_nNbVertices ; ++i)
