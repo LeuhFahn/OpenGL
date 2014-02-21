@@ -81,9 +81,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\shapes\shape.cpp" />
+    <ClCompile Include="..\src\shapes\triangle.cpp" />
     <ClCompile Include="..\src\Tools\ShaderGLSL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\shapes\shape.h" />
+    <ClInclude Include="..\src\shapes\triangle.h" />
     <ClInclude Include="..\src\Tools\GLCommon.h" />
     <ClInclude Include="..\src\Tools\ShaderGLSL.h" />
   </ItemGroup>

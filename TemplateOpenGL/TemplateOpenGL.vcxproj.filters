@@ -16,6 +16,9 @@
     <Filter Include="Fichiers sources\Tools">
       <UniqueIdentifier>{909ffc74-7d2a-4c41-a693-9cb188d8a84a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Shapes">
+      <UniqueIdentifier>{9140b913-dec1-49d5-b86a-2c036ff00bb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -24,6 +27,12 @@
     <ClCompile Include="..\src\Tools\ShaderGLSL.cpp">
       <Filter>Fichiers sources\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\shapes\shape.cpp">
+      <Filter>Fichiers sources\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\shapes\triangle.cpp">
+      <Filter>Fichiers sources\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tools\GLCommon.h">
@@ -31,6 +40,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Tools\ShaderGLSL.h">
       <Filter>Fichiers sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shapes\shape.h">
+      <Filter>Fichiers sources\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shapes\triangle.h">
+      <Filter>Fichiers sources\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
