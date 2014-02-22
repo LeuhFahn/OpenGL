@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __SHADER_GLSL_H
+#define __SHADER_GLSL_H
 
 #include "GLCommon.h"
 
@@ -16,3 +17,5 @@ struct SShaderGLSL
 int compile_and_link_shader(SShaderGLSL & shader, int typeMask, const char * sourceBuffer, int bufferSize);
 int destroy_shader(SShaderGLSL & shader);
 int load_shader_from_file(SShaderGLSL & shader, const char * path, int typemask);
+
+#endif //__SHADER_GLSL_H

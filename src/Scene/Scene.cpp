@@ -1,9 +1,12 @@
 #include <iostream>
 #include "Scene.h"
 
+int CScene::ms_nWidth = 1024;
+int CScene::ms_nHeight = 768;
+CCamera CScene::ms_Camera;
+
 CScene::CScene() :
-	m_nWidth(1024),
-	m_nHeight(768),
+
 	m_nNbShapes(0),
 	m_ContexteOpenGL(0),
 	m_bQuit(false)
@@ -21,16 +24,11 @@ CScene::~CScene()
 void CScene::Init()
 {
 	InitSDL();
-	/*
-	 SShaderGLSL shader;
-    const char * shaderFile = "001/3a.glsl";
-    int status = load_shader_from_file(shader, shaderFile, SShaderGLSL::VERTEX_SHADER | SShaderGLSL::FRAGMENT_SHADER);
-    if ( status == -1 )
-    {
-        fprintf(stderr, "Error on loading  %s\n", shaderFile);
-        exit( EXIT_FAILURE );
-    }
-	*/
+
+	//Camera
+    ms_Camera.camera_defaults(ms_Camera);
+	
+
 
 	m_pShape[0] = new CTriangle();
 	m_nNbShapes++;
@@ -62,13 +60,13 @@ void CScene::Process(float fDeltatime)
        
 }
 
-void CScene::Draw()
+void CScene::Draw(float fDeltatime)
 {
 	// Nettoyage de l'écran
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	for(int i = 0 ; i < m_nNbShapes ; ++i)
-		m_pShape[i]->Draw();
+		m_pShape[i]->Draw(fDeltatime);
 
 	// On désactive le tableau Vertex Attrib puisque l'on n'en a plus besoin
 	glDisableVertexAttribArray(0);
@@ -106,7 +104,7 @@ void CScene::InitSDL()
 	
 	
     // Création de la fenêtre
-    m_pWindow = SDL_CreateWindow("Test SDL 2.0", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_nWidth, m_nHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+    m_pWindow = SDL_CreateWindow("Test SDL 2.0", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ms_nWidth, ms_nHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 
     if(m_pWindow == 0)
     {

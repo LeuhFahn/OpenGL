@@ -20,7 +20,7 @@ void CShape::SetVertices(float* pfVertices)
 		m_pfVertices[i] = pfVertices[i];
 }
 
-void CShape::Draw()
+void CShape::Draw(float fDeltatime)
 {
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, m_pfVertices);
 	glEnableVertexAttribArray(0);

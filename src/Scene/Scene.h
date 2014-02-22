@@ -5,18 +5,20 @@
 #include "../Tools/GLCommon.h"
 #include "../shapes/shape.h"
 #include "../shapes/triangle.h"
-#include "../Tools/ShaderGLSL.h"
 #include "../Tools/Camera.h"
-#include <vector>
 
 class CScene
 {
+public:
+	static int ms_nWidth;
+	static int ms_nHeight;
+	static CCamera ms_Camera;
+
 private:
-	int m_nWidth;
-	int m_nHeight;
 	int m_nNbShapes;
 	CShape** m_pShape;
 	bool m_bQuit;
+	
 
 	SDL_Event m_Evenements;
 	SDL_Window* m_pWindow;
@@ -30,7 +32,7 @@ public:
 
 	void Init();
 	void Process(float fDeltatime);
-	void Draw();
+	void Draw(float fDeltatime);
 	void QuitApplication();
 
 	bool GetQuit() {return m_bQuit;}
