@@ -1,14 +1,11 @@
 #ifndef __TRIANGE_H
 #define __TRIANGE_H
 
-#include "shape.h"
+#include "shape2D.h"
 
-class CTriangle : public CShape
+class CTriangle : public CShape2D
 {
 protected:
-	GLuint projectionLocation;
-    GLuint viewLocation;
-    GLuint objectLocation;
     GLuint timeLocation;
 	float m_fTime;
 public:

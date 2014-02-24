@@ -82,13 +82,19 @@
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Scene\Scene.cpp" />
+    <ClCompile Include="..\src\shapes\cube.cpp" />
     <ClCompile Include="..\src\shapes\shape.cpp" />
+    <ClCompile Include="..\src\shapes\shape2D.cpp" />
+    <ClCompile Include="..\src\shapes\shape3D.cpp" />
     <ClCompile Include="..\src\shapes\triangle.cpp" />
     <ClCompile Include="..\src\Tools\ShaderGLSL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Scene\Scene.h" />
+    <ClInclude Include="..\src\shapes\cube.h" />
     <ClInclude Include="..\src\shapes\shape.h" />
+    <ClInclude Include="..\src\shapes\shape2D.h" />
+    <ClInclude Include="..\src\shapes\shape3D.h" />
     <ClInclude Include="..\src\shapes\triangle.h" />
     <ClInclude Include="..\src\Tools\Camera.h" />
     <ClInclude Include="..\src\Tools\GLCommon.h" />

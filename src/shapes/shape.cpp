@@ -3,26 +3,35 @@
 
 CShape::CShape()
 {
-	m_pfVertices = nullptr;
+
 }
 
 CShape::~CShape()
 {
-	delete m_pfVertices;
+
 }
+
 
 void CShape::SetVertices(float* pfVertices)
 {
 	delete m_pfVertices;
-	m_pfVertices = new float[m_nNbVertices];
+	m_pfVertices = new float[2*m_nNbVertices];
 
-	for (int i = 0 ; i < m_nNbVertices ; ++i)
+	for (int i = 0 ; i < 2*m_nNbVertices ; ++i)
 		m_pfVertices[i] = pfVertices[i];
 }
 
+void CShape::SetColors(float* pfColors)
+{
+	delete m_pfColors;
+	m_pfColors = new float[3*m_nNbVertices];
+
+	for (int i = 0 ; i < 3*m_nNbVertices ; ++i)
+		m_pfColors[i] = pfColors[i];
+}
+
+
 void CShape::Draw(float fDeltatime)
 {
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, m_pfVertices);
-	glEnableVertexAttribArray(0);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+
 }

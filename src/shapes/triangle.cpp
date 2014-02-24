@@ -5,26 +5,24 @@
 
 CTriangle::CTriangle()
 {
-	m_nNbVertices = 6;
+	m_nNbVertices = 3;
 	m_fTime = 0.0f;
 	float pfVertices[] = {-0.5f, -0.5f, 0.0f, 0.5f, 0.5f, -0.5f};
+	float pfColors[] = {1.0, 0.0, 0.0,  0.0, 1.0, 0.0,  0.0, 0.0, 1.0};
 
 	SetVertices(pfVertices);
-
+	SetColors(pfColors);
 		
-    const char * shaderFile = "../shaders/simple.glsl";
+    const char * shaderFile = "../shaders/simple2D.glsl";
     int status = load_shader_from_file(m_Shader, shaderFile, SShaderGLSL::VERTEX_SHADER | SShaderGLSL::FRAGMENT_SHADER);
     if ( status == -1 )
     {
         fprintf(stderr, "Error on loading  %s\n", shaderFile);
         exit( EXIT_FAILURE );
     }
-	    // Apply shader
-	// GLuint program = shader.program;
+	
+	// Apply shader
 	glUseProgram(m_Shader.program);
-	projectionLocation = glGetUniformLocation(m_Shader.program, "Projection");
-	viewLocation = glGetUniformLocation(m_Shader.program, "View");
-	objectLocation = glGetUniformLocation(m_Shader.program, "Object");
 	timeLocation = glGetUniformLocation(m_Shader.program, "Time");
 }
 
@@ -37,20 +35,11 @@ void CTriangle::Draw(float fDeltatime)
 {
 	m_fTime += fDeltatime;
 
-	// Get camera matrices
-	glm::mat4 projection = glm::perspective(45.0f, (float)CScene::ms_nWidth / CScene::ms_nHeight, 0.1f, 100.f); 
-	glm::mat4 worldToView = glm::lookAt(CScene::ms_Camera.eye, CScene::ms_Camera.o, CScene::ms_Camera.up);
-    glm::mat4 objectToWorld;
-
 		// Select shader
     glUseProgram(m_Shader.program);
 
 		// Upload uniforms
-    glUniformMatrix4fv(projectionLocation, 1, 0, glm::value_ptr(projection));
-    glUniformMatrix4fv(viewLocation, 1, 0, glm::value_ptr(worldToView));
-    glUniformMatrix4fv(objectLocation, 1, 0, glm::value_ptr(objectToWorld));
 	glUniform1f(timeLocation, m_fTime);
 
-
-	CShape::Draw(fDeltatime);
+	CShape2D::Draw(fDeltatime);
 }

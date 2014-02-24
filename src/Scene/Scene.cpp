@@ -68,9 +68,6 @@ void CScene::Draw(float fDeltatime)
 	for(int i = 0 ; i < m_nNbShapes ; ++i)
 		m_pShape[i]->Draw(fDeltatime);
 
-	// On désactive le tableau Vertex Attrib puisque l'on n'en a plus besoin
-	glDisableVertexAttribArray(0);
-
 	// Actualisation de la fenêtre
 	SDL_GL_SwapWindow(m_pWindow);
 }

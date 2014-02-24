@@ -9,17 +9,19 @@
 class CShape
 {
 protected:
-	float* m_pfVertices;
-	int m_nNbVertices;
 	SShaderGLSL m_Shader;
+	float* m_pfVertices;
+	float* m_pfColors;
+	int m_nNbVertices;
 public:
 	CShape();
 	CShape(CShape const& shape);
 	~CShape();
 
 	void SetVertices(float* pfVertices);
+	void SetColors(float* pfColors);
 
-	virtual void Draw(float fDeltatime);
+	virtual void Draw(float fDeltatime) = 0;
 };
 
 #endif //__SHAPE_H

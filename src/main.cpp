@@ -8,16 +8,16 @@
 
 int main(int argc, char **argv)
 {	
-   CScene Scene;
-   Scene.Init();   
-    // Boucle principale
+	CScene Scene;
+	Scene.Init();   
+	// Boucle principale
 	while(!Scene.GetQuit())
-    {
-        // Gestion des évènements
+	{
+		// Gestion des évènements
 		// Récupération d'un évènement
 		Scene.Process(1.0f/60.0f);
 		Scene.Draw(1.0f/60.0f);
-    }
+	}
 
 	Scene.QuitApplication();
     return 0;

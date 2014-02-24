@@ -42,6 +42,15 @@
     <ClCompile Include="..\src\Scene\Scene.cpp">
       <Filter>Fichiers sources\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\shapes\shape2D.cpp">
+      <Filter>Fichiers sources\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\shapes\cube.cpp">
+      <Filter>Fichiers sources\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\shapes\shape3D.cpp">
+      <Filter>Fichiers sources\Shapes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tools\GLCommon.h">
@@ -64,6 +73,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Tools\Camera.h">
       <Filter>Fichiers sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shapes\shape2D.h">
+      <Filter>Fichiers sources\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shapes\cube.h">
+      <Filter>Fichiers sources\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shapes\shape3D.h">
+      <Filter>Fichiers sources\Shapes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
