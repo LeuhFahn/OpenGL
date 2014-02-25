@@ -28,8 +28,8 @@ public:
 
 	void camera_defaults(CCamera & c)
 	{
-		c.phi = 3.14/2.f;
-		c.theta = 3.14/2.f;
+		c.phi = 3.14f/2.f;
+		c.theta = 3.14f/2.f;
 		c.radius = 10.f;
 		camera_compute(c);
 	}
@@ -49,10 +49,10 @@ public:
 	{
 		c.theta += 1.f * theta;
 		c.phi   -= 1.f * phi;
-		if (c.phi >= (2 * M_PI) - 0.1 )
-			c.phi = 0.00001;
-		else if (c.phi <= 0 )
-			c.phi = 2 * M_PI - 0.1;
+		if (c.phi >= (2 * M_PI) - 0.1f )
+			c.phi = 0.00001f;
+		else if (c.phi <= 0.0f )
+			c.phi = 2.0f * (float)M_PI - 0.1f;
 		camera_compute(c);
 	}
 

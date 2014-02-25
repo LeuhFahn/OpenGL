@@ -51,6 +51,12 @@
     <ClCompile Include="..\src\shapes\shape3D.cpp">
       <Filter>Fichiers sources\Shapes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Tools\Timer.cpp">
+      <Filter>Fichiers sources\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Tools\Text.cpp">
+      <Filter>Fichiers sources\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tools\GLCommon.h">
@@ -82,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="..\src\shapes\shape3D.h">
       <Filter>Fichiers sources\Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Tools\Timer.h">
+      <Filter>Fichiers sources\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Tools\Text.h">
+      <Filter>Fichiers sources\Tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #ifndef __SHAPE2D_H
 #define __SHAPE2D_H
 
-#include "shape.h";
+#include "shape.h"
 
 class CShape2D : public CShape
 {

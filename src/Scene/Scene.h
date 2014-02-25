@@ -13,15 +13,14 @@ public:
 	static int ms_nWidth;
 	static int ms_nHeight;
 	static CCamera ms_Camera;
+	static SDL_Window* m_pWindow;
 
 private:
 	int m_nNbShapes;
 	CShape** m_pShape;
 	bool m_bQuit;
 	
-
 	SDL_Event m_Evenements;
-	SDL_Window* m_pWindow;
     SDL_GLContext m_ContexteOpenGL;
 	
 	void InitSDL();

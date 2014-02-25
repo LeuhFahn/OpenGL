@@ -1,16 +1,17 @@
 #include <iostream>
+#include "../Tools/Text.h"
 #include "Scene.h"
+#include "../Tools/Timer.h"
 
 int CScene::ms_nWidth = 1024;
 int CScene::ms_nHeight = 768;
 CCamera CScene::ms_Camera;
+SDL_Window* CScene::m_pWindow = nullptr;
 
 CScene::CScene() :
-
 	m_nNbShapes(0),
 	m_ContexteOpenGL(0),
 	m_bQuit(false)
-	
 {
 	m_pWindow = nullptr;
 	m_pShape = new CShape*[12];
@@ -28,8 +29,6 @@ void CScene::Init()
 	//Camera
     ms_Camera.camera_defaults(ms_Camera);
 	
-
-
 	m_pShape[0] = new CTriangle();
 	m_nNbShapes++;
 }
@@ -68,6 +67,10 @@ void CScene::Draw(float fDeltatime)
 	for(int i = 0 ; i < m_nNbShapes ; ++i)
 		m_pShape[i]->Draw(fDeltatime);
 
+			char pcText[16];
+	sprintf(pcText, "%f", fDeltatime);
+	CText::WriteText(pcText);
+
 	// Actualisation de la fenêtre
 	SDL_GL_SwapWindow(m_pWindow);
 }
@@ -77,6 +80,7 @@ void CScene::QuitApplication()
 	SDL_GL_DeleteContext(m_ContexteOpenGL);
     SDL_DestroyWindow(m_pWindow);
     SDL_Quit();
+	CText::Quit();
 }
 
 void CScene::InitSDL()
@@ -129,4 +133,6 @@ void CScene::InitSDL()
 		SDL_Quit();
 		exit( EXIT_FAILURE );
     }
+
+	CText::InitText();
 }
