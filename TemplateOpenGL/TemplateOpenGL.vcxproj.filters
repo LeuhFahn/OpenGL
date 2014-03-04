@@ -28,6 +28,9 @@
     <Filter Include="Fichiers sources\imgui">
       <UniqueIdentifier>{16af1026-8c5f-4bd4-bf4a-187401669042}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\stb">
+      <UniqueIdentifier>{8b58c0cc-2b7d-4649-a667-c88af8ed3efa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Tools\ShaderGLSL.cpp">
@@ -60,6 +63,9 @@
     <ClCompile Include="..\src\imgui\DroidSans.cpp">
       <Filter>Fichiers sources\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\stb\stb_image.c">
+      <Filter>Fichiers sources\stb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Tools\GLCommon.h">
@@ -89,14 +95,20 @@
     <ClInclude Include="..\src\Tools\Timer.h">
       <Filter>Fichiers sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\imgui\stb_truetype.h">
-      <Filter>Fichiers sources\imgui</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\imgui\imgui.h">
       <Filter>Fichiers sources\imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\src\imgui\imguiRenderGL3.h">
       <Filter>Fichiers sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\stb\stb_truetype.h">
+      <Filter>Fichiers sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\imgui\stb_truetype.h">
+      <Filter>Fichiers sources\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\stb\stb_image.h">
+      <Filter>Fichiers sources\stb</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

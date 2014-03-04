@@ -90,6 +90,7 @@
     <ClCompile Include="..\src\shapes\cube.cpp" />
     <ClCompile Include="..\src\shapes\shape.cpp" />
     <ClCompile Include="..\src\shapes\shape3D.cpp" />
+    <ClCompile Include="..\src\stb\stb_image.c" />
     <ClCompile Include="..\src\Tools\ShaderGLSL.cpp" />
     <ClCompile Include="..\src\Tools\Timer.cpp" />
   </ItemGroup>
@@ -101,6 +102,8 @@
     <ClInclude Include="..\src\shapes\cube.h" />
     <ClInclude Include="..\src\shapes\shape.h" />
     <ClInclude Include="..\src\shapes\shape3D.h" />
+    <ClInclude Include="..\src\stb\stb_image.h" />
+    <ClInclude Include="..\src\stb\stb_truetype.h" />
     <ClInclude Include="..\src\Tools\Camera.h" />
     <ClInclude Include="..\src\Tools\GLCommon.h" />
     <ClInclude Include="..\src\Tools\ShaderGLSL.h" />

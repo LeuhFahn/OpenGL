@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	timer.start();
 	float fTimeStart = 0;
 	float fTimeEnd = 0;
-	float ellapsedTime = 0.0f;
+	float fEllapsedTime = 0.0f;
 	float fps = 60.0f;
 	int nNbFrames = 0;
 	float fDeltatime = 0.0f;
@@ -31,11 +31,11 @@ int main(int argc, char **argv)
 
 		// Gestion compteur
         fTimeEnd = timer.getTicks() / 1000.0f;
-        ellapsedTime = fTimeEnd - fTimeStart;
+        fEllapsedTime = fTimeEnd - fTimeStart;
 		
-		if(ellapsedTime > 1.0f)
+		if(fEllapsedTime > 1.0f)
 		{
-			fps = float(nNbFrames)/ellapsedTime;
+			fps = float(nNbFrames)/fEllapsedTime;
 			nNbFrames = 0;
 			fTimeStart = timer.getTicks() / 1000.0f;
 		}

@@ -6,9 +6,7 @@
 class CShape3D : public CShape
 {
 protected:
-	GLuint projectionLocation;
-    GLuint viewLocation;
-    GLuint objectLocation;
+
 public:
 	CShape3D();
 	CShape3D(CShape3D const& shape);

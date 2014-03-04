@@ -21,6 +21,7 @@ public:
 	void SetVertices(float* pfVertices);
 	void SetColors(float* pfColors);
 
+
 	virtual void Draw(float fDeltatime) = 0;
 };
 

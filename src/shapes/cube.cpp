@@ -3,10 +3,8 @@
 #include <iostream>
 #include "../Scene/Scene.h"
 #include "glm/glm.hpp"
-#include "glm/vec3.hpp" // glm::vec3
-#include "glm/vec4.hpp" // glm::vec4, glm::ivec4
-#include "glm/mat4x4.hpp" // glm::mat4
 #include "glm/gtc/matrix_transform.hpp"
+#include "../stb/stb_image.h"
 
 CCube::CCube()
 {
@@ -44,20 +42,35 @@ CCube::CCube()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT)*2, (void*)0);
     glBufferData(GL_ARRAY_BUFFER, sizeof(cube_uvs), cube_uvs, GL_STATIC_DRAW);
 		
-    const char * shaderFile = "../shaders/simple.glsl";
+	glGenTextures(1, m_pTextures);
+    int x;
+    int y;
+    int comp; 
+    unsigned char * diffuse = stbi_load("../textures/spnza_bricks_a_diff.tga", &x, &y, &comp, 3);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_pTextures[0]);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGB, GL_UNSIGNED_BYTE, diffuse);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    fprintf(stderr, "Diffuse %dx%d:%d\n", x, y, comp);
+
+    const char * shaderFile = "../shaders/Diffuse.glsl";
     int status = load_shader_from_file(m_Shader, shaderFile, SShaderGLSL::VERTEX_SHADER | SShaderGLSL::FRAGMENT_SHADER);
     if ( status == -1 )
     {
         fprintf(stderr, "Error on loading  %s\n", shaderFile);
         exit( EXIT_FAILURE );
     }
-	    // Apply shader
+	// Apply shader
 	// GLuint program = shader.program;
 	glUseProgram(m_Shader.program);
 	projectionLocation = glGetUniformLocation(m_Shader.program, "Projection");
 	viewLocation = glGetUniformLocation(m_Shader.program, "View");
 	objectLocation = glGetUniformLocation(m_Shader.program, "Object");
 	timeLocation = glGetUniformLocation(m_Shader.program, "Time");
+	diffuseLocation = glGetUniformLocation(m_Shader.program, "Diffuse");
 }
 
 CCube::~CCube()
@@ -81,6 +94,11 @@ void CCube::Draw(float fDeltatime)
 	glUniformMatrix4fv(projectionLocation, 1, 0, glm::value_ptr(projection));
 	glUniformMatrix4fv(viewLocation, 1, 0, glm::value_ptr(worldToView));
 	glUniformMatrix4fv(objectLocation, 1, 0, glm::value_ptr(objectToWorld));
+	glUniform1i(diffuseLocation, 0);
+
+	// Bind textures
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_pTextures[0]);
 
 	// Render vaos
     glBindVertexArray(m_Vao);
