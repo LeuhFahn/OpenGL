@@ -1,7 +1,6 @@
 #ifndef __SCENE_H
 #define __SCENE_H
 
-
 #include "../Tools/GLCommon.h"
 #include "../shapes/shape.h"
 #include "../Tools/Camera.h"
@@ -13,6 +12,7 @@ public:
 	static int ms_nHeight;
 	static CCamera ms_Camera;
 	static SDL_Window* m_pWindow;
+	SGUIStates m_guiStates;
 
 private:
 	int m_nNbShapes;
@@ -25,6 +25,7 @@ private:
 	void InitSDL();
 	void InitImgui();
 	void DrawGUI(float fDeltatime);
+	void ProcessCamera(float fDeltatime);
 public:
 	CScene();
 	~CScene();

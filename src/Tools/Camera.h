@@ -8,6 +8,33 @@
 #include "glm/gtc/matrix_transform.hpp" // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include "glm/gtc/type_ptr.hpp" // glm::value_ptr
 
+struct SGUIStates
+{
+    bool panLock;
+    bool turnLock;
+    bool zoomLock;
+    int lockPositionX;
+    int lockPositionY;
+    int camera;
+    double time;
+    bool playing;
+    static const float MOUSE_PAN_SPEED;
+    static const float MOUSE_ZOOM_SPEED;
+    static const float MOUSE_TURN_SPEED;
+
+	void init_gui_states()
+	{
+		panLock = false;
+		turnLock = false;
+		zoomLock = false;
+		lockPositionX = 0;
+		lockPositionY = 0;
+		camera = 0;
+		time = 0.0;
+		playing = false;
+	}
+};
+
 class CCamera
 {
 public:

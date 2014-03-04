@@ -12,6 +12,10 @@ int CScene::ms_nHeight = 768;
 CCamera CScene::ms_Camera;
 SDL_Window* CScene::m_pWindow = nullptr;
 
+const float SGUIStates::MOUSE_PAN_SPEED = 0.001f;
+const float SGUIStates::MOUSE_ZOOM_SPEED = 0.05f;
+const float SGUIStates::MOUSE_TURN_SPEED = 0.005f;
+
 // Font buffers
 extern const unsigned char DroidSans_ttf[];
 extern const unsigned int DroidSans_ttf_len;   
@@ -34,8 +38,11 @@ void CScene::Init()
 {
 	InitSDL();
 	InitImgui();
+
 	//Camera
     ms_Camera.camera_defaults(ms_Camera);
+
+	m_guiStates.init_gui_states();
 	
 	m_pShape[0] = new CCube(4);
 	m_nNbShapes++;
@@ -62,7 +69,9 @@ void CScene::Process(float fDeltatime)
 			}
 
 		break;
-	}       
+	} 
+
+	ProcessCamera(fDeltatime);
 }
 
 void CScene::Draw(float fDeltatime)
@@ -161,7 +170,6 @@ void CScene::DrawGUI(float fDeltatime)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glViewport(0, 0, ms_nWidth, ms_nHeight);
 	
-	float numLights;
     unsigned char mbut = 0;
     int mscroll = 0;
     int mousex; int mousey;
@@ -180,4 +188,68 @@ void CScene::DrawGUI(float fDeltatime)
 
     glDisable(GL_BLEND);
 #endif //DEBUG
+}
+
+void CScene::ProcessCamera(float fDeltatime)
+{
+	
+	// Mouse states
+	bool leftButton = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(1);
+	bool rightButton = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(3);
+	bool middleButton = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(2);
+
+	if(leftButton)
+		m_guiStates.turnLock = true;
+	else
+		m_guiStates.turnLock = false;
+
+	if( rightButton)
+		m_guiStates.zoomLock = true;
+	else
+		m_guiStates.zoomLock = false;
+
+	if( middleButton)
+		m_guiStates.panLock = true;
+	else
+		m_guiStates.panLock = false;
+
+	// Camera movements
+	int altPressed = true;//glfwGetKey(GLFW_KEY_LSHIFT);
+	if (!altPressed && (leftButton || rightButton || middleButton))
+	{
+		int x; int y;
+		SDL_GetMouseState(&x, &y);
+		m_guiStates.lockPositionX = x;
+		m_guiStates.lockPositionY = y;
+	}
+	if (altPressed)
+	{
+		int mousex; int mousey;
+		SDL_GetMouseState(&mousex, &mousey);
+		int diffLockPositionX = mousex - m_guiStates.lockPositionX;
+		int diffLockPositionY = mousey - m_guiStates.lockPositionY;
+		if (m_guiStates.zoomLock)
+		{
+			float zoomDir = 0.0;
+			if (diffLockPositionX > 0)
+				zoomDir = -1.f;
+			else if (diffLockPositionX < 0 )
+				zoomDir = 1.f;
+			ms_Camera.camera_zoom(ms_Camera, zoomDir * SGUIStates::MOUSE_ZOOM_SPEED);
+		}
+		else if (m_guiStates.turnLock)
+		{
+			ms_Camera.camera_turn(ms_Camera, diffLockPositionY * SGUIStates::MOUSE_TURN_SPEED,
+						diffLockPositionX * SGUIStates::MOUSE_TURN_SPEED);
+
+		}
+		else if (m_guiStates.panLock)
+		{
+			ms_Camera.camera_pan(ms_Camera, diffLockPositionX * SGUIStates::MOUSE_PAN_SPEED,
+						diffLockPositionY * SGUIStates::MOUSE_PAN_SPEED);
+		}
+		m_guiStates.lockPositionX = mousex;
+		m_guiStates.lockPositionY = mousey;
+	}
+	
 }
