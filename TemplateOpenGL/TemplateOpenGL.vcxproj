@@ -82,28 +82,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\imgui\DroidSans.cpp" />
+    <ClCompile Include="..\src\imgui\imgui.cpp" />
+    <ClCompile Include="..\src\imgui\imguiRenderGL3.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Scene\Scene.cpp" />
     <ClCompile Include="..\src\shapes\cube.cpp" />
     <ClCompile Include="..\src\shapes\shape.cpp" />
-    <ClCompile Include="..\src\shapes\shape2D.cpp" />
     <ClCompile Include="..\src\shapes\shape3D.cpp" />
-    <ClCompile Include="..\src\shapes\triangle.cpp" />
     <ClCompile Include="..\src\Tools\ShaderGLSL.cpp" />
-    <ClCompile Include="..\src\Tools\Text.cpp" />
     <ClCompile Include="..\src\Tools\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\imgui\imgui.h" />
+    <ClInclude Include="..\src\imgui\imguiRenderGL3.h" />
+    <ClInclude Include="..\src\imgui\stb_truetype.h" />
     <ClInclude Include="..\src\Scene\Scene.h" />
     <ClInclude Include="..\src\shapes\cube.h" />
     <ClInclude Include="..\src\shapes\shape.h" />
-    <ClInclude Include="..\src\shapes\shape2D.h" />
     <ClInclude Include="..\src\shapes\shape3D.h" />
-    <ClInclude Include="..\src\shapes\triangle.h" />
     <ClInclude Include="..\src\Tools\Camera.h" />
     <ClInclude Include="..\src\Tools\GLCommon.h" />
     <ClInclude Include="..\src\Tools\ShaderGLSL.h" />
-    <ClInclude Include="..\src\Tools\Text.h" />
     <ClInclude Include="..\src\Tools\Timer.h" />
     <ClInclude Include="..\src\user\user.h" />
   </ItemGroup>

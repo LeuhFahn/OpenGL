@@ -1,12 +1,19 @@
 #include <iostream>
-#include "../Tools/Text.h"
 #include "Scene.h"
 #include "../Tools/Timer.h"
+#include "../imgui/imgui.h"
+#include "../imgui/imguiRenderGL3.h"
+#include "../shapes/triangle.h"
+#include "../shapes/cube.h"
 
 int CScene::ms_nWidth = 1024;
 int CScene::ms_nHeight = 768;
 CCamera CScene::ms_Camera;
 SDL_Window* CScene::m_pWindow = nullptr;
+
+// Font buffers
+extern const unsigned char DroidSans_ttf[];
+extern const unsigned int DroidSans_ttf_len;   
 
 CScene::CScene() :
 	m_nNbShapes(0),
@@ -25,11 +32,11 @@ CScene::~CScene()
 void CScene::Init()
 {
 	InitSDL();
-
+	InitImgui();
 	//Camera
     ms_Camera.camera_defaults(ms_Camera);
 	
-	m_pShape[0] = new CTriangle();
+	m_pShape[0] = new CCube();
 	m_nNbShapes++;
 }
 
@@ -54,33 +61,31 @@ void CScene::Process(float fDeltatime)
 			}
 
 		break;
-	}
-
-       
+	}       
 }
 
 void CScene::Draw(float fDeltatime)
 {
-	// Nettoyage de l'écran
-	glClear(GL_COLOR_BUFFER_BIT);
+    // Default states
+    glEnable(GL_DEPTH_TEST);
+
+    // Clear the front buffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for(int i = 0 ; i < m_nNbShapes ; ++i)
 		m_pShape[i]->Draw(fDeltatime);
 
-			char pcText[16];
-	sprintf(pcText, "%f", fDeltatime);
-	CText::WriteText(pcText);
-
+	DrawGUI(fDeltatime);
 	// Actualisation de la fenêtre
 	SDL_GL_SwapWindow(m_pWindow);
 }
 
 void CScene::QuitApplication()
 {
+    imguiRenderGLDestroy();
 	SDL_GL_DeleteContext(m_ContexteOpenGL);
     SDL_DestroyWindow(m_pWindow);
     SDL_Quit();
-	CText::Quit();
 }
 
 void CScene::InitSDL()
@@ -133,6 +138,44 @@ void CScene::InitSDL()
 		SDL_Quit();
 		exit( EXIT_FAILURE );
     }
+}
 
-	CText::InitText();
+void CScene::InitImgui()
+{
+	if (!imguiRenderGLInit(DroidSans_ttf, DroidSans_ttf_len))
+    {
+        fprintf(stderr, "Could not init GUI renderer.\n");
+        exit(EXIT_FAILURE);
+    }
+
+	DrawGUI(1.0f);
+}
+
+void CScene::DrawGUI(float fDeltatime)
+{
+	// Draw UI
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glViewport(0, 0, ms_nWidth, ms_nHeight);
+	
+	float numLights;
+    unsigned char mbut = 0;
+    int mscroll = 0;
+    int mousex; int mousey;
+    SDL_GetMouseState(&mousex, &mousey);
+    mousey = ms_nHeight - mousey;
+
+    imguiBeginFrame(mousex, mousey, mbut, mscroll);
+    int logScroll = 0;
+    char lineBuffer[512];
+    imguiBeginScrollArea("Debug info", ms_nWidth - 210, ms_nHeight - 310, 200, 300, &logScroll);
+    sprintf(lineBuffer, "FPS %f", fDeltatime);
+    imguiLabel(lineBuffer);
+    imguiEndScrollArea();
+    imguiEndFrame();
+    imguiRenderGLDraw(ms_nWidth, ms_nHeight); 
+
+    glDisable(GL_BLEND);
+
 }

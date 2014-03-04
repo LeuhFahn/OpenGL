@@ -25,25 +25,19 @@
     <Filter Include="Fichiers sources\Scene">
       <UniqueIdentifier>{b33c53d2-c5c2-4913-997b-56c7ff938005}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\imgui">
+      <UniqueIdentifier>{16af1026-8c5f-4bd4-bf4a-187401669042}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Tools\ShaderGLSL.cpp">
       <Filter>Fichiers sources\Tools</Filter>
     </ClCompile>
     <ClCompile Include="..\src\shapes\shape.cpp">
       <Filter>Fichiers sources\Shapes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\shapes\triangle.cpp">
-      <Filter>Fichiers sources\Shapes</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Scene\Scene.cpp">
       <Filter>Fichiers sources\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\shapes\shape2D.cpp">
-      <Filter>Fichiers sources\Shapes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\shapes\cube.cpp">
       <Filter>Fichiers sources\Shapes</Filter>
@@ -54,8 +48,17 @@
     <ClCompile Include="..\src\Tools\Timer.cpp">
       <Filter>Fichiers sources\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Tools\Text.cpp">
-      <Filter>Fichiers sources\Tools</Filter>
+    <ClCompile Include="..\src\imgui\imgui.cpp">
+      <Filter>Fichiers sources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\imgui\imguiRenderGL3.cpp">
+      <Filter>Fichiers sources\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\imgui\DroidSans.cpp">
+      <Filter>Fichiers sources\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,9 +71,6 @@
     <ClInclude Include="..\src\shapes\shape.h">
       <Filter>Fichiers sources\Shapes</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\shapes\triangle.h">
-      <Filter>Fichiers sources\Shapes</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\user\user.h">
       <Filter>Fichiers sources\user</Filter>
     </ClInclude>
@@ -79,9 +79,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Tools\Camera.h">
       <Filter>Fichiers sources\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\shapes\shape2D.h">
-      <Filter>Fichiers sources\Shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\shapes\cube.h">
       <Filter>Fichiers sources\Shapes</Filter>
@@ -92,8 +89,14 @@
     <ClInclude Include="..\src\Tools\Timer.h">
       <Filter>Fichiers sources\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Tools\Text.h">
-      <Filter>Fichiers sources\Tools</Filter>
+    <ClInclude Include="..\src\imgui\stb_truetype.h">
+      <Filter>Fichiers sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\imgui\imgui.h">
+      <Filter>Fichiers sources\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\imgui\imguiRenderGL3.h">
+      <Filter>Fichiers sources\imgui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

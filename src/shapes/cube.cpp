@@ -2,11 +2,19 @@
 #include <cstdio>
 #include <iostream>
 #include "../Scene/Scene.h"
+#include "glm/glm.hpp"
+#include "glm/vec3.hpp" // glm::vec3
+#include "glm/vec4.hpp" // glm::vec4, glm::ivec4
+#include "glm/mat4x4.hpp" // glm::mat4
+#include "glm/gtc/matrix_transform.hpp"
 
 CCube::CCube()
 {
 	m_nNbVertices = 12;
 	m_fTime = 0.0f;
+
+	glGenVertexArrays(1, &m_Vao);
+	glGenBuffers(4, m_Vbo);
 
     int cube_triangleList[] = {0, 1, 2, 2, 1, 3, 4, 5, 6, 6, 5, 7, 8, 9, 10, 10, 9, 11, 12, 13, 14, 14, 13, 15, 16, 17, 18, 19, 17, 20, 21, 22, 23, 24, 25, 26, };
     float cube_uvs[] = {0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 1.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 1.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 1.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 1.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f,  1.f, 0.f,  1.f, 1.f,  0.f, 1.f,  1.f, 1.f,  0.f, 0.f, 0.f, 0.f, 1.f, 1.f,  1.f, 0.f,  };
@@ -16,7 +24,25 @@ CCube::CCube()
 
 	float pfVertices[] = {-0.5f, -0.5f, 0.0f, 0.5f, 0.5f, -0.5f};
 
-	SetVertices(pfVertices);
+	glBindVertexArray(m_Vao);
+    // Bind indices and upload data
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Vbo[0]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_triangleList), cube_triangleList, GL_STATIC_DRAW);
+    // Bind vertices and upload data
+    glBindBuffer(GL_ARRAY_BUFFER, m_Vbo[1]);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT)*3, (void*)0);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
+    // Bind normals and upload data
+    glBindBuffer(GL_ARRAY_BUFFER, m_Vbo[2]);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT)*3, (void*)0);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(cube_normals), cube_normals, GL_STATIC_DRAW);
+    // Bind uv coords and upload data
+    glBindBuffer(GL_ARRAY_BUFFER, m_Vbo[3]);
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(GL_FLOAT)*2, (void*)0);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(cube_uvs), cube_uvs, GL_STATIC_DRAW);
 		
     const char * shaderFile = "../shaders/simple.glsl";
     int status = load_shader_from_file(m_Shader, shaderFile, SShaderGLSL::VERTEX_SHADER | SShaderGLSL::FRAGMENT_SHADER);
@@ -43,6 +69,20 @@ void CCube::Draw(float fDeltatime)
 {
 	m_fTime += fDeltatime;
 
+		// Get camera matrices
+	glm::mat4 projection = glm::perspective(45.0f, (float)CScene::ms_nWidth / CScene::ms_nHeight, 0.1f, 100.f); 
+    glm::mat4 worldToView = glm::lookAt(CScene::ms_Camera.eye, CScene::ms_Camera.o,  CScene::ms_Camera.up);
+    glm::mat4 objectToWorld;
+    glm::mat4 worldToScreen = projection * worldToView;
+    glm::mat4 screenToWorld = glm::transpose(glm::inverse(worldToScreen));
+
 	glUseProgram(m_Shader.program);
 	glUniform1f(timeLocation, m_fTime);
+	glUniformMatrix4fv(projectionLocation, 1, 0, glm::value_ptr(projection));
+	glUniformMatrix4fv(viewLocation, 1, 0, glm::value_ptr(worldToView));
+	glUniformMatrix4fv(objectLocation, 1, 0, glm::value_ptr(objectToWorld));
+
+	// Render vaos
+    glBindVertexArray(m_Vao);
+    glDrawElementsInstanced(GL_TRIANGLES, m_nNbVertices * 3, GL_UNSIGNED_INT, (void*)0, 4);
 }

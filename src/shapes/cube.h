@@ -9,6 +9,9 @@ protected:
 
     GLuint timeLocation;
 	float m_fTime;
+
+	GLuint m_Vao;
+	GLuint m_Vbo[4];
 public:
 	CCube();	
 	~CCube();
