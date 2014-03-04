@@ -15,15 +15,34 @@ int main(int argc, char **argv)
 
 	CTimer timer;
 	timer.start();
-
+	float fTimeStart = 0;
+	float fTimeEnd = 0;
+	float ellapsedTime = 0.0f;
+	float fps = 60.0f;
+	int nNbFrames = 0;
+	float fDeltatime = 0.0f;
 	while(!Scene.GetQuit())
 	{
-
-		int pute = timer.getTicks();
 		// Gestion des évènements
 		// Récupération d'un évènement
-		Scene.Process(1.0f/60.0f);
-		Scene.Draw(1.0f/60.0f);
+		fDeltatime = 1.0f/fps;
+		Scene.Process(fDeltatime);
+		Scene.Draw(fDeltatime);
+
+		// Gestion compteur
+        fTimeEnd = timer.getTicks() / 1000.0f;
+        ellapsedTime = fTimeEnd - fTimeStart;
+		
+		if(ellapsedTime > 1.0f)
+		{
+			fps = float(nNbFrames)/ellapsedTime;
+			nNbFrames = 0;
+			fTimeStart = timer.getTicks() / 1000.0f;
+		}
+		else 
+		{
+			++nNbFrames;
+		}
 	}
 
 	Scene.QuitApplication();

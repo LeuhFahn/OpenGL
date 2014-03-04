@@ -1,4 +1,5 @@
 #include <iostream>
+#include "../user/user.h"
 #include "Scene.h"
 #include "../Tools/Timer.h"
 #include "../imgui/imgui.h"
@@ -153,6 +154,7 @@ void CScene::InitImgui()
 
 void CScene::DrawGUI(float fDeltatime)
 {
+#ifdef DEBUG
 	// Draw UI
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -170,12 +172,12 @@ void CScene::DrawGUI(float fDeltatime)
     int logScroll = 0;
     char lineBuffer[512];
     imguiBeginScrollArea("Debug info", ms_nWidth - 210, ms_nHeight - 310, 200, 300, &logScroll);
-    sprintf(lineBuffer, "FPS %f", fDeltatime);
+    sprintf(lineBuffer, "FPS %f", 1.0f/fDeltatime);
     imguiLabel(lineBuffer);
     imguiEndScrollArea();
     imguiEndFrame();
     imguiRenderGLDraw(ms_nWidth, ms_nHeight); 
 
     glDisable(GL_BLEND);
-
+#endif //DEBUG
 }
