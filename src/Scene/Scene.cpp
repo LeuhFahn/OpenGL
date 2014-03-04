@@ -44,7 +44,7 @@ void CScene::Init()
 
 	m_guiStates.init_gui_states();
 	
-	m_pShape[0] = new CCube(4);
+	m_pShape[0] = new CCube(10000);
 	m_nNbShapes++;
 }
 

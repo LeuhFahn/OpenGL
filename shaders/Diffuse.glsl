@@ -21,8 +21,10 @@ void main(void)
 								
 	uv = VertexTexCoord;
 	normal = vec3(Object * vec4(VertexNormal, 1.0));; 
-	position = vec3(RotationMatrix* Object * vec4(VertexPosition, 1.0));
-	position.x += (gl_InstanceID * 1.5); 
+	position = vec3(Object * vec4(VertexPosition, 1.0));
+	position.x += (gl_InstanceID%100); 
+	position.z += (gl_InstanceID/100); 
+	position.y += cos(Time*(gl_InstanceID%40 + 1)/8);
 	gl_Position = Projection * View * vec4(position, 1.0);
 }
 
