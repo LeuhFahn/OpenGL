@@ -40,11 +40,13 @@ void CScene::Init()
 	InitImgui();
 
 	//Camera
-    ms_Camera.camera_defaults(ms_Camera);
+    ms_Camera.camera_defaults();
+	ms_Camera.SetSizeScreen(ms_nWidth, ms_nHeight);
 
 	m_guiStates.init_gui_states();
 	
-	m_pShape[0] = new CCube(10000);
+	int nNbCube = 100;
+	m_pShape[0] = new CCube(nNbCube*nNbCube);
 	m_nNbShapes++;
 }
 
@@ -199,19 +201,19 @@ void CScene::ProcessCamera(float fDeltatime)
 	bool middleButton = SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(2);
 
 	if(leftButton)
-		m_guiStates.turnLock = true;
+		m_guiStates.m_bturnLock = true;
 	else
-		m_guiStates.turnLock = false;
+		m_guiStates.m_bturnLock = false;
 
 	if( rightButton)
-		m_guiStates.zoomLock = true;
+		m_guiStates.m_bZoomLock = true;
 	else
-		m_guiStates.zoomLock = false;
+		m_guiStates.m_bZoomLock = false;
 
 	if( middleButton)
-		m_guiStates.panLock = true;
+		m_guiStates.m_bPanLock = true;
 	else
-		m_guiStates.panLock = false;
+		m_guiStates.m_bPanLock = false;
 
 	// Camera movements
 	int altPressed = true;//glfwGetKey(GLFW_KEY_LSHIFT);
@@ -219,37 +221,36 @@ void CScene::ProcessCamera(float fDeltatime)
 	{
 		int x; int y;
 		SDL_GetMouseState(&x, &y);
-		m_guiStates.lockPositionX = x;
-		m_guiStates.lockPositionY = y;
+		m_guiStates.m_nLockPositionX = x;
+		m_guiStates.m_nLockPositionY = y;
 	}
 	if (altPressed)
 	{
 		int mousex; int mousey;
 		SDL_GetMouseState(&mousex, &mousey);
-		int diffLockPositionX = mousex - m_guiStates.lockPositionX;
-		int diffLockPositionY = mousey - m_guiStates.lockPositionY;
-		if (m_guiStates.zoomLock)
+		int diffLockPositionX = mousex - m_guiStates.m_nLockPositionX;
+		int diffLockPositionY = mousey - m_guiStates.m_nLockPositionY;
+		if (m_guiStates.m_bZoomLock)
 		{
 			float zoomDir = 0.0;
 			if (diffLockPositionX > 0)
 				zoomDir = -1.f;
 			else if (diffLockPositionX < 0 )
 				zoomDir = 1.f;
-			ms_Camera.camera_zoom(ms_Camera, zoomDir * SGUIStates::MOUSE_ZOOM_SPEED);
+			ms_Camera.camera_zoom(zoomDir * SGUIStates::MOUSE_ZOOM_SPEED);
 		}
-		else if (m_guiStates.turnLock)
+		else if (m_guiStates.m_bturnLock)
 		{
-			ms_Camera.camera_turn(ms_Camera, diffLockPositionY * SGUIStates::MOUSE_TURN_SPEED,
-						diffLockPositionX * SGUIStates::MOUSE_TURN_SPEED);
+			ms_Camera.camera_turn(diffLockPositionY * SGUIStates::MOUSE_TURN_SPEED,  diffLockPositionX * SGUIStates::MOUSE_TURN_SPEED);
 
 		}
-		else if (m_guiStates.panLock)
+		else if (m_guiStates.m_bPanLock)
 		{
-			ms_Camera.camera_pan(ms_Camera, diffLockPositionX * SGUIStates::MOUSE_PAN_SPEED,
+			ms_Camera.camera_pan(diffLockPositionX * SGUIStates::MOUSE_PAN_SPEED,
 						diffLockPositionY * SGUIStates::MOUSE_PAN_SPEED);
 		}
-		m_guiStates.lockPositionX = mousex;
-		m_guiStates.lockPositionY = mousey;
+		m_guiStates.m_nLockPositionX = mousex;
+		m_guiStates.m_nLockPositionY = mousey;
 	}
 	
 }

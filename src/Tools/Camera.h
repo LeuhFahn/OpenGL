@@ -10,92 +10,113 @@
 
 struct SGUIStates
 {
-    bool panLock;
-    bool turnLock;
-    bool zoomLock;
-    int lockPositionX;
-    int lockPositionY;
-    int camera;
-    double time;
-    bool playing;
+    bool m_bPanLock;
+    bool m_bturnLock;
+    bool m_bZoomLock;
+    int m_nLockPositionX;
+    int m_nLockPositionY;
+    int m_nCamera;
+    double m_dTime;
+    bool m_bPlaying;
     static const float MOUSE_PAN_SPEED;
     static const float MOUSE_ZOOM_SPEED;
     static const float MOUSE_TURN_SPEED;
 
 	void init_gui_states()
 	{
-		panLock = false;
-		turnLock = false;
-		zoomLock = false;
-		lockPositionX = 0;
-		lockPositionY = 0;
-		camera = 0;
-		time = 0.0;
-		playing = false;
+		m_bPanLock = false;
+		m_bturnLock = false;
+		m_bZoomLock = false;
+		m_nLockPositionX = 0;
+		m_nLockPositionY = 0;
+		m_nCamera = 0;
+		m_dTime = 0.0;
+		m_bPlaying = false;
 	}
 };
 
 class CCamera
 {
 public:
-    float radius;
-    float theta;
-    float phi;
+    float m_fRadius;
+    float m_fTheta;
+    float m_fPhi;
+	float m_fFov;
+	float m_fNear;
+	float far;
+	float m_fWidth;
+	float m_fHeight;
     glm::vec3 o;
     glm::vec3 eye;
     glm::vec3 up;
 
-	void camera_compute(CCamera & c)
+	glm::mat4 projection;
+    glm::mat4 worldToView;
+
+	void camera_compute()
 	{
-		c.eye.x = cos(c.theta) * sin(c.phi) * c.radius + c.o.x;   
-		c.eye.y = cos(c.phi) * c.radius + c.o.y ;
-		c.eye.z = sin(c.theta) * sin(c.phi) * c.radius + c.o.z;   
-		c.up = glm::vec3(0.f, c.phi < M_PI ?1.f:-1.f, 0.f);
+		eye.x = cos( m_fTheta) * sin( m_fPhi) *  m_fRadius +  o.x;   
+		eye.y = cos( m_fPhi) *  m_fRadius +  o.y ;
+		eye.z = sin( m_fTheta) * sin( m_fPhi) *  m_fRadius +  o.z;    
+		up = glm::vec3(0.f,  m_fPhi < M_PI ?1.f:-1.f, 0.f);
+
+		projection = glm::perspective( m_fFov,  m_fWidth /  m_fHeight,  m_fNear,  far); 
+		worldToView = glm::lookAt( eye,  o,   up);
 	}
 
-	void camera_defaults(CCamera & c)
+	void camera_defaults()
 	{
-		c.phi = 3.14f/2.f;
-		c.theta = 3.14f/2.f;
-		c.radius = 10.f;
-		camera_compute(c);
+		m_fPhi = 3.14f/2.f;
+		m_fTheta = 3.14f/2.f;
+		m_fRadius = 10.f;
+		m_fFov = 45.f;
+		m_fNear = 0.1f;
+		far = 1000.f;
+		camera_compute();
 	}
 
-	void camera_zoom(CCamera & c, float factor)
+	void camera_zoom(float factor)
 	{
-		c.radius += factor * c.radius ;
-		if (c.radius < 0.1)
+		 m_fRadius += factor *  m_fRadius ;
+		if ( m_fRadius < 0.1)
 		{
-			c.radius = 10.f;
-			c.o = c.eye + glm::normalize(c.o - c.eye) * c.radius;
+			 m_fRadius = 10.f;
+			 o =  eye + glm::normalize( o -  eye) *  m_fRadius;
 		}
-		camera_compute(c);
+		camera_compute();
 	}
 
-	void camera_turn(CCamera & c, float phi, float theta)
+	void camera_turn(float fPhi, float fTheta)
 	{
-		c.theta += 1.f * theta;
-		c.phi   -= 1.f * phi;
-		if (c.phi >= (2 * M_PI) - 0.1f )
-			c.phi = 0.00001f;
-		else if (c.phi <= 0.0f )
-			c.phi = 2.0f * (float)M_PI - 0.1f;
-		camera_compute(c);
+		m_fTheta += 1.f * fTheta;
+		m_fPhi   -= 1.f * fPhi;
+		if ( m_fPhi >= (2 * M_PI) - 0.1f )
+			 m_fPhi = 0.00001f;
+		else if ( m_fPhi <= 0.0f )
+			 m_fPhi = 2.0f * (float)M_PI - 0.1f;
+		camera_compute();
 	}
 
-	void camera_pan(CCamera & c, float x, float y)
+	void camera_pan(float x, float y)
 	{
-		glm::vec3 up(0.f, c.phi < M_PI ?1.f:-1.f, 0.f);
-		glm::vec3 fwd = glm::normalize(c.o - c.eye);
+		glm::vec3 up(0.f,  m_fPhi < M_PI ?1.f:-1.f, 0.f);
+		glm::vec3 fwd = glm::normalize( o -  eye);
 		glm::vec3 side = glm::normalize(glm::cross(fwd, up));
-		c.up = glm::normalize(glm::cross(side, fwd));
-		c.o[0] += up[0] * y * c.radius * 2;
-		c.o[1] += up[1] * y * c.radius * 2;
-		c.o[2] += up[2] * y * c.radius * 2;
-		c.o[0] -= side[0] * x * c.radius * 2;
-		c.o[1] -= side[1] * x * c.radius * 2;
-		c.o[2] -= side[2] * x * c.radius * 2;       
-		camera_compute(c);
+		up = glm::normalize(glm::cross(side, fwd));
+		o[0] += up[0] * y *  m_fRadius * 2;
+		o[1] += up[1] * y *  m_fRadius * 2;
+		o[2] += up[2] * y *  m_fRadius * 2;
+		o[0] -= side[0] * x *  m_fRadius * 2;
+		o[1] -= side[1] * x *  m_fRadius * 2;
+		o[2] -= side[2] * x *  m_fRadius * 2;       
+		camera_compute();
+	}
+
+	void SetSizeScreen(float fWidth, float fHeight)
+	{
+		m_fWidth = fWidth;
+		m_fHeight = fHeight;
+		camera_compute();
 	}
 };
 

@@ -15,6 +15,7 @@ protected:
     GLuint viewLocation;
     GLuint objectLocation;
 	GLuint diffuseLocation;
+	GLuint sqrtNbInstanceLocation;
 
 	GLuint m_Vao;
 	GLuint m_Vbo[4];

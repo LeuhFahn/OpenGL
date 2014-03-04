@@ -72,6 +72,7 @@ CCube::CCube(int nNbInstance) :
 	objectLocation = glGetUniformLocation(m_Shader.program, "Object");
 	timeLocation = glGetUniformLocation(m_Shader.program, "Time");
 	diffuseLocation = glGetUniformLocation(m_Shader.program, "Diffuse");
+	sqrtNbInstanceLocation = glGetUniformLocation(m_Shader.program, "nSqrtNbInstance");
 }
 
 CCube::~CCube()
@@ -85,17 +86,19 @@ void CCube::Draw(float fDeltatime)
 	m_fTime += fDeltatime;
 
 		// Get camera matrices
-	glm::mat4 projection = glm::perspective(45.0f, (float)CScene::ms_nWidth / CScene::ms_nHeight, 0.1f, 100.f); 
-    glm::mat4 worldToView = glm::lookAt(CScene::ms_Camera.eye, CScene::ms_Camera.o,  CScene::ms_Camera.up);
+	glm::mat4 projection = CScene::ms_Camera.projection; 
+	glm::mat4 worldToView = CScene::ms_Camera.worldToView;
     glm::mat4 objectToWorld;
     glm::mat4 worldToScreen = projection * worldToView;
     glm::mat4 screenToWorld = glm::transpose(glm::inverse(worldToScreen));
 
 	glUseProgram(m_Shader.program);
 	glUniform1f(timeLocation, m_fTime);
+	glUniform1i(sqrtNbInstanceLocation, sqrtf(m_nNbInstance));
 	glUniformMatrix4fv(projectionLocation, 1, 0, glm::value_ptr(projection));
 	glUniformMatrix4fv(viewLocation, 1, 0, glm::value_ptr(worldToView));
 	glUniformMatrix4fv(objectLocation, 1, 0, glm::value_ptr(objectToWorld));
+
 	glUniform1i(diffuseLocation, 0);
 
 	// Bind textures
