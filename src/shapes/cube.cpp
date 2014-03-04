@@ -6,7 +6,8 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "../stb/stb_image.h"
 
-CCube::CCube()
+CCube::CCube(int nNbInstance) :
+	m_nNbInstance(nNbInstance)
 {
 	m_nNbVertices = 12;
 	m_fTime = 0.0f;
@@ -75,7 +76,8 @@ CCube::CCube()
 
 CCube::~CCube()
 {
-
+	delete [] m_Vbo;
+	delete [] m_pTextures;
 }
 
 void CCube::Draw(float fDeltatime)
@@ -102,5 +104,5 @@ void CCube::Draw(float fDeltatime)
 
 	// Render vaos
     glBindVertexArray(m_Vao);
-    glDrawElementsInstanced(GL_TRIANGLES, m_nNbVertices * 3, GL_UNSIGNED_INT, (void*)0, 4);
+    glDrawElementsInstanced(GL_TRIANGLES, m_nNbVertices * 3, GL_UNSIGNED_INT, (void*)0, m_nNbInstance);
 }

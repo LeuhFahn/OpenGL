@@ -18,8 +18,12 @@ void main(void)
 								0.0,  1.0,			0.0, 		0.0,
 								sin( Time ),           0.0, 		cos( Time ), 0.0,
 								0.0,           0.0, 		0.0, 1.0 );
+								
 	uv = VertexTexCoord;
-	gl_Position = Projection * View * RotationMatrix *vec4(VertexPosition, 1.0);
+	normal = vec3(Object * vec4(VertexNormal, 1.0));; 
+	position = vec3(RotationMatrix* Object * vec4(VertexPosition, 1.0));
+	position.x += (gl_InstanceID * 1.5); 
+	gl_Position = Projection * View * vec4(position, 1.0);
 }
 
 #endif

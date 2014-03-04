@@ -37,7 +37,7 @@ void CScene::Init()
 	//Camera
     ms_Camera.camera_defaults(ms_Camera);
 	
-	m_pShape[0] = new CCube();
+	m_pShape[0] = new CCube(4);
 	m_nNbShapes++;
 }
 

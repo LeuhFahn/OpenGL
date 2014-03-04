@@ -19,8 +19,10 @@ protected:
 	GLuint m_Vao;
 	GLuint m_Vbo[4];
 	GLuint m_pTextures[NB_TEXTURES];
+
+	const int m_nNbInstance;
 public:
-	CCube();	
+	CCube(int nNbInstance = 1);
 	~CCube();
 
 	void Draw(float fDeltatime);
