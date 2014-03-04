@@ -29,7 +29,7 @@ void main(void)
 	position = vec3(Object * vec4(VertexPosition, 1.0));
 	position.x += (gl_InstanceID%nSqrtNbInstance); 
 	position.z += (gl_InstanceID/nSqrtNbInstance); 
-	position.y +=  cos(rand(vec2(gl_InstanceID,1.0f)) * Time * (gl_InstanceID%10 + 1));
+	position.y +=  cos(rand(vec2(gl_InstanceID, 1.0f)) * Time * (gl_InstanceID%10 + 1));
 	gl_Position = Projection * View * vec4(position, 1.0);
 }
 

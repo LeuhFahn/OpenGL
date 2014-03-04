@@ -47,7 +47,7 @@ CCube::CCube(int nNbInstance) :
     int x;
     int y;
     int comp; 
-    unsigned char * diffuse = stbi_load("../textures/spnza_bricks_a_diff.tga", &x, &y, &comp, 3);
+    unsigned char * diffuse = stbi_load("../textures/jeanphe.tga", &x, &y, &comp, 3);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, m_pTextures[0]);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGB, GL_UNSIGNED_BYTE, diffuse);
@@ -89,7 +89,7 @@ void CCube::Draw(float fDeltatime)
 	glm::mat4 projection = CScene::ms_Camera.projection; 
 	glm::mat4 worldToView = CScene::ms_Camera.worldToView;
     glm::mat4 objectToWorld;
-    glm::mat4 worldToScreen = projection * worldToView;
+    glm::mat4 worldToScreen = CScene::ms_Camera.worldToScreen;
     glm::mat4 screenToWorld = glm::transpose(glm::inverse(worldToScreen));
 
 	glUseProgram(m_Shader.program);

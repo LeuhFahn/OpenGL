@@ -52,6 +52,7 @@ public:
 
 	glm::mat4 projection;
     glm::mat4 worldToView;
+	glm::mat4 worldToScreen;
 
 	void camera_compute()
 	{
@@ -62,6 +63,7 @@ public:
 
 		projection = glm::perspective( m_fFov,  m_fWidth /  m_fHeight,  m_fNear,  far); 
 		worldToView = glm::lookAt( eye,  o,   up);
+		worldToScreen = projection * worldToView;
 	}
 
 	void camera_defaults()
