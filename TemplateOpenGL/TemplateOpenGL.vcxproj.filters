@@ -110,5 +110,21 @@
     <ClInclude Include="..\src\stb\stb_image.h">
       <Filter>Fichiers sources\stb</Filter>
     </ClInclude>
+    <ClInclude Include="..\ressources\resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\ressources\ressources.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Batman.ico">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+    <None Include="..\ressources\France.ico">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
   </ItemGroup>
 </Project>

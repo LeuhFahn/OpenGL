@@ -95,6 +95,7 @@
     <ClCompile Include="..\src\Tools\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ressources\resource.h" />
     <ClInclude Include="..\src\imgui\imgui.h" />
     <ClInclude Include="..\src\imgui\imguiRenderGL3.h" />
     <ClInclude Include="..\src\imgui\stb_truetype.h" />
@@ -109,6 +110,13 @@
     <ClInclude Include="..\src\Tools\ShaderGLSL.h" />
     <ClInclude Include="..\src\Tools\Timer.h" />
     <ClInclude Include="..\src\user\user.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\ressources\ressources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\ressources\France.ico" />
+    <None Include="Batman.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
