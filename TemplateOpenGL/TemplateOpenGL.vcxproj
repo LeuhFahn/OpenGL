@@ -115,7 +115,6 @@
     <ResourceCompile Include="..\ressources\ressources.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\ressources\France.ico" />
     <None Include="Batman.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

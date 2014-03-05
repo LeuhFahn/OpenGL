@@ -123,8 +123,5 @@
     <None Include="Batman.ico">
       <Filter>Fichiers de ressources</Filter>
     </None>
-    <None Include="..\ressources\France.ico">
-      <Filter>Fichiers de ressources</Filter>
-    </None>
   </ItemGroup>
 </Project>
